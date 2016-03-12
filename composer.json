@@ -1,8 +1,8 @@
 {
-    "name": "redaigbaria/php-on-couch",
+    "name": "redaigbaria/cloudant",
     "type": "library",
     "description": "CouchDB NoSQL database access in PHP",
-    "keywords": ["couchdb","couch", "db", "apache", "nosql","driver"],
+    "keywords": ["couchdb","couch", "cloudant" ,"db", "apache", "nosql","driver" , "lucene"],
     "homepage": "https://github.com/redaigbaria/cloudant",
     "authors": [
         {

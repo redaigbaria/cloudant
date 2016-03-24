@@ -475,7 +475,8 @@ class couchClient extends couch {
 			$method = 'PUT';
 			$url .= '/' . urlencode($doc->_id);
 		}
-		return $this->_queryAndTest($method, $url, array(200, 201), array(), $doc);
+		// todo: Remove thie status code (100) when cloudant is fixed..
+		return $this->_queryAndTest($method, $url, array(200, 201, 100), array(), $doc);
 	}
 
 	/**

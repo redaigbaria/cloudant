@@ -508,7 +508,8 @@ class couchClient extends couch {
 		}
 
 		$url = '/' . urlencode($this->dbname) . '/_bulk_docs';
-		return $this->_queryAndTest('POST', $url, array(200, 201, 202), array(), $request);
+		// todo: remove status code 100 
+		return $this->_queryAndTest('POST', $url, array(200, 201, 202, 100), array(), $request);
 	}
 
 	/**

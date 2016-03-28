@@ -824,6 +824,20 @@ class couchClient extends couch {
 	 * @param string $name view name
 	 * @return object CouchDB view query response
 	 */
+	public function mygetView($id, $name) {
+		$url = $this->getServerUri().'/' . urlencode($this->dbname) . '/_design/' . urlencode($id) . '/_view/' . urlencode($name);
+		$http = curl_init();
+		curl_setopt($http, CURLOPT_URL, $url);
+		curl_setopt($http, CURLOPT_HEADER, true);
+		curl_setopt($http, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($http, CURLOPT_FOLLOWLOCATION, true);
+		$result = curl_exec($http);
+		$header_size = curl_getinfo($http, CURLINFO_HEADER_SIZE);
+		$header = substr($result, 0, $header_size);
+		$body = json_decode(substr($result, $header_size));
+		curl_close($http);
+		return ($body);
+	}
 	public function getView($id, $name) {
 		if (!$id OR !$name) {
 			throw new InvalidArgumentException("You should specify view id and name");
@@ -839,8 +853,9 @@ class couchClient extends couch {
 
 		list($method, $view_query, $data) = $this->_prepare_view_query();
 
+		//todo : remove 100
 		if (!$results_as_cd) {
-			return $this->_queryAndTest($method, $url, array(200), $view_query, $data);
+			return $this->_queryAndTest($method, $url, array(200, 100), $view_query, $data);
 		}
 
 		return $this->resultsToCouchDocuments(

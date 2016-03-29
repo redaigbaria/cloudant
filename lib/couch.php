@@ -146,8 +146,13 @@ class couch {
 		$status_array = explode(' ',$status_line,3);
 		$response['status_code'] = trim($status_array[1]);
 		$response['status_message'] = trim($status_array[2]);
+		// todo : fix this
 		if ( strlen($body) ) {
-			$response['body'] = preg_match('@Content-Type:\s+application/json@i',$headers) ? json_decode($body,$json_as_array) : $body ;
+			try {
+				$response['body'] = preg_match('@Content-Type:\s+application/json@i',$headers) || true ? json_decode($body,$json_as_array) : $body;
+			} catch (\Exception $e) {
+				$response['body'] = $body;
+			}
 		}
 		return $response;
 	}

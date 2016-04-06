@@ -824,8 +824,8 @@ class couchClient extends couch {
 	 * @param string $name view name
 	 * @return object CouchDB view query response
 	 */
-	public function mygetView($id, $name) {
-		$url = $this->getServerUri().'/' . urlencode($this->dbname) . '/_design/' . urlencode($id) . '/_view/' . urlencode($name);
+	public function mygetView($id, $name, $query = []) {
+		$url = $this->getServerUri().'/' . urlencode($this->dbname) . '/_design/' . urlencode($id) . '/_view/' . urlencode($name) . "?" . http_build_query($query);
 		$http = curl_init();
 		curl_setopt($http, CURLOPT_URL, $url);
 		curl_setopt($http, CURLOPT_HEADER, true);

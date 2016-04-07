@@ -508,6 +508,7 @@ class couch {
 		} elseif ($data) {
 			curl_setopt($http, CURLOPT_POSTFIELDS, $data);
 		}
+		$http_headers[] = 'Expect:';
 		curl_setopt($http, CURLOPT_HTTPHEADER,$http_headers);
 		return $http;
 	}

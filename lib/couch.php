@@ -539,7 +539,8 @@ class couch {
 		curl_setopt($http,CURLOPT_HEADER, true);
 		curl_setopt($http,CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($http,CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($http, CURLOPT_HTTPHEADER, array('Expect:'));
+		// todo : fix this , urgent
+		// curl_setopt($http, CURLOPT_HTTPHEADER, array('Expect:'));
 		$response = curl_exec($http);
 		curl_close($http);
 // 		echo $response;

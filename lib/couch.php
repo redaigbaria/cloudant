@@ -509,8 +509,6 @@ class couch {
 			curl_setopt($http, CURLOPT_POSTFIELDS, $data);
 		}
 		$http_headers[] = 'Expect:';
-		// $http_headers[] = 'x-cloudant-user: ' . config("couch.username");
-		// $http_headers[] = 'Authorization: Basic '.base64_encode(config("couch.username").':'.config("couch.password"));
 		curl_setopt($http, CURLOPT_HTTPHEADER,$http_headers);
 		return $http;
 	}

@@ -82,6 +82,11 @@ class couchClient extends couch {
 	protected $results_as_array = false;
 
 	/**
+	 * @var boolean tell if documents shall be returned as arrays instead of objects (sets the default option)
+	 */
+	protected $default_as_array = false;
+
+	/**
 	 * @var array list of properties beginning with '_' and allowed in CouchDB objects in a "store" type operation
 	 */
 	public static $allowed_underscored_properties = array('_id', '_rev', '_attachments', '_deleted');
@@ -151,12 +156,22 @@ class couchClient extends couch {
 	protected function _queryAndTest($method, $url, $allowed_status_codes, $parameters = array(), $data = NULL, $content_type = NULL) {
 		$raw = $this->query($method, $url, $parameters, $data, $content_type);
 		$response = $this->parseRawResponse($raw, $this->results_as_array);
-		$this->results_as_array = false;
+		$this->results_as_array = $this->default_as_array;
 		if (in_array($response['status_code'], $allowed_status_codes)) {
 			return $response['body'];
 		}
 		throw couchException::factory($response, $method, $url, $parameters);
 		return FALSE;
+	}
+
+	/**
+	 * sets the default value for the serialization (array or json)
+	 * @param boolean $as_array
+	 */
+	public function setDefaultAsArray($as_array)
+	{
+		$this->default_as_array = $as_array;
+		$this->results_as_array = $as_array;
 	}
 
 	function __call($name, $args) {

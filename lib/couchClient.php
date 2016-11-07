@@ -892,6 +892,9 @@ class couchClient extends couch {
 		curl_setopt($http, CURLOPT_HEADER, true);
 		curl_setopt($http, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($http, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($http, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json',
+		));
 		$result = curl_exec($http);
 		$header_size = curl_getinfo($http, CURLINFO_HEADER_SIZE);
 		$header = substr($result, 0, $header_size);
